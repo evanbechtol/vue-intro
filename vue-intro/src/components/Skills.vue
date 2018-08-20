@@ -5,16 +5,16 @@
       <!-- Prevent page from refreshing -->
       <form @submit.prevent='addSkill'>
         <input type='text'
-               placeholder='Enter a skill you have...'
-               v-model='skill'
+               placeholder='What do you need to do?'
+               v-model='input'
                v-validate='"min:5"'
-               name='skill'>
+               name='input'>
         
         <!-- Create a CSS animation class for alerts -->
         <transition name='alert-in'
                     enter-active-class='animated flipInX'
                     leave-active-class='animated flipOutX'>
-          <p class='alert' v-if='errors.has( "skill" )'>{{ errors.first( 'skill' ) }}</p>
+          <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
         </transition>
       </form>
       
@@ -22,14 +22,13 @@
         <transition-group name='list'
                           enter-active-class='animated bounceInUp'
                           leave-active-class='animated bounceOutDown'>
-          <li v-for='( data, index ) in skills' :key='index'>
-            {{ index }}. {{ data.skill }}
+          <li v-for='( data, index ) in list' :key='index'>
+            {{ data.todo }}
           </li>
         </transition-group>
         
       </ul>
       
-      <p>These are the skills that you possess!</p>
       <!--<div v-bind:class='alertObj'>Here is an alert!</div>-->
       <!--<div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'>Here is an alert!</div>-->
     </div>
@@ -41,10 +40,10 @@
     name : 'Skills',
     data () {
       return {
-        skill  : '',
-        skills : [
-          { skill : 'Vue.js' },
-          { skill : 'Polymer.js' }
+        input  : '',
+        list : [
+          { todo : 'Vue.js' },
+          { todo : 'Polymer.js' }
         ]
       };
     },
@@ -53,8 +52,8 @@
       addSkill () {
         this.$validator.validateAll().then( res => {
           if ( res ) {
-            this.skills.push( { skill : this.skill } );
-            this.skill = '';
+            this.list.push( { todo : this.input } );
+            this.input = '';
           }
         } );
       }
@@ -107,9 +106,9 @@
     background  : rgba(220, 84, 88, 0.91);
     color       : white;
     font-weight : bold;
-    display     : inline-block;
     padding     : 5px;
-    margin-top  : -20px;
+    margin-top  : -5px;
+    margin-bottom: 0;
   }
   
   .alert-in {
