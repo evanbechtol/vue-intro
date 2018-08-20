@@ -25,8 +25,10 @@
 
           <!-- Iterate over each item in the list of todos -->
           <li v-for='( data, index ) in list' :key='index'>
-            {{ data.todo }}
-            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
+            <div>
+              {{ data.todo }}
+              <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
+            </div>
           </li>
         </transition-group>
       </ul>
@@ -99,9 +101,10 @@
   }
 
   i {
-    float  : right;
-    color  : rgba(220, 84, 88, 1.0);
-    cursor : pointer;
+    float       : right;
+    color       : rgba(220, 84, 88, 1.0);
+    cursor      : pointer;
+    margin-left : 10px;
   }
 
   input {
@@ -132,6 +135,7 @@
     border-left      : 5px solid #3EB3F6;
     margin-bottom    : 2px;
     color            : #3E5252;
+    word-wrap        : break-word;
   }
 
   @keyframes bounce-in {
