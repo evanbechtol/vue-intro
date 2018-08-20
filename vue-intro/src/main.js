@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import App from './App.vue';
-import veeValidate from 'vee-validate';
+import VeeValidate from 'vee-validate';
+import VTooltip from 'v-tooltip';
 
-Vue.use( veeValidate );
+Vue.use( VeeValidate );
+Vue.use( VTooltip );
 Vue.config.productionTip = false;
 
 new Vue( {

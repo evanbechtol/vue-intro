@@ -1,15 +1,15 @@
 <template>
   <div class='hello'>
     <div class='holder'>
-      
+
       <!-- Prevent page from refreshing -->
-      <form @submit.prevent='addSkill'>
+      <form @submit.prevent='addTodo'>
         <input type='text'
                placeholder='What do you need to do?'
                v-model='input'
                v-validate='"min:5"'
                name='input'>
-        
+
         <!-- Create a CSS animation class for alerts -->
         <transition name='alert-in'
                     enter-active-class='animated flipInX'
@@ -17,18 +17,20 @@
           <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
         </transition>
       </form>
-      
+
       <ul>
         <transition-group name='list'
                           enter-active-class='animated bounceInUp'
                           leave-active-class='animated bounceOutDown'>
+
+          <!-- Iterate over each item in the list of todos -->
           <li v-for='( data, index ) in list' :key='index'>
             {{ data.todo }}
+            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
           </li>
         </transition-group>
-        
       </ul>
-      
+
       <!--<div v-bind:class='alertObj'>Here is an alert!</div>-->
       <!--<div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'>Here is an alert!</div>-->
     </div>
@@ -37,25 +39,26 @@
 
 <script>
   export default {
-    name : 'Skills',
+    name : 'Todo',
     data () {
       return {
-        input  : '',
-        list : [
-          { todo : 'Vue.js' },
-          { todo : 'Polymer.js' }
-        ]
+        input : '',
+        list  : []
       };
     },
 
     methods : {
-      addSkill () {
+      addTodo () {
         this.$validator.validateAll().then( res => {
           if ( res ) {
             this.list.push( { todo : this.input } );
             this.input = '';
           }
         } );
+      },
+
+      removeTodo ( data, index ) {
+        this.list.splice( index, 1 );
       }
     }
   };
@@ -64,35 +67,43 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import 'https://cdn.jsdelivr.net/npm/animate.css@3.5.1';
-  .holder {
-    background : #fff;
+  @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+  @import './tooltip.css';
+
+  .alert {
+    background    : rgba(220, 84, 88, 0.91);
+    color         : white;
+    font-weight   : bold;
+    padding       : 5px;
+    margin-top    : -5px;
+    margin-bottom : 0;
   }
-  
-  ul {
-    margin          : 0;
-    padding         : 0;
-    list-style-type : none;
+
+  .alert-in {
   }
-  
-  ul li {
-    padding          : 20px;
-    font-size        : 1.3em;
-    background-color : #E0EDF4;
-    border-left      : 5px solid #3EB3F6;
-    margin-bottom    : 2px;
-    color            : #3E5252;
+
+  .alert-in-enter-active {
+    animation : bounce-in .5s;
   }
-  
-  p {
-    text-align : center;
-    padding    : 30px 0;
-    color      : gray;
+
+  .alert-in-leave-active {
+    animation : bounce-in .5s reverse;
   }
-  
+
   .container {
     box-shadow : 0px 0px 40px lightgray;
   }
-  
+
+  .holder {
+    background : #fff;
+  }
+
+  i {
+    float  : right;
+    color  : rgba(220, 84, 88, 1.0);
+    cursor : pointer;
+  }
+
   input {
     width            : calc(100% - 40px);
     border           : 0;
@@ -101,28 +112,28 @@
     background-color : #323333;
     color            : #687F7F;
   }
-  
-  .alert {
-    background  : rgba(220, 84, 88, 0.91);
-    color       : white;
-    font-weight : bold;
-    padding     : 5px;
-    margin-top  : -5px;
-    margin-bottom: 0;
+
+  p {
+    text-align : center;
+    padding    : 30px 0;
+    color      : gray;
   }
-  
-  .alert-in {
-  
+
+  ul {
+    margin          : 0;
+    padding         : 0;
+    list-style-type : none;
   }
-  
-  .alert-in-enter-active {
-    animation : bounce-in .5s;
+
+  ul li {
+    padding          : 20px;
+    font-size        : 1.3em;
+    background-color : #E0EDF4;
+    border-left      : 5px solid #3EB3F6;
+    margin-bottom    : 2px;
+    color            : #3E5252;
   }
-  
-  .alert-in-leave-active {
-    animation : bounce-in .5s reverse;
-  }
-  
+
   @keyframes bounce-in {
     0% {
       transform : scale(0);

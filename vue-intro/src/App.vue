@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <Skills/>
+    <Todo/>
   </div>
 </template>
 
 <script>
-  import Skills from './components/Skills.vue';
+  import Todo from './components/Todo.vue';
 
   export default {
     name       : 'app',
     components : {
-      Skills
+      Todo
     }
   };
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-  
+
   body {
     background-color   : #EEEEEE;
     font-family        : 'Montserrat', sans-serif;
@@ -26,12 +26,12 @@
     justify-items      : center;
     align-items        : center;
   }
-  
+
   body, html {
     margin : 0;
     height : 100%;
   }
-  
+
   #app {
     width : 50%;
   }
