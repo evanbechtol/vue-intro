@@ -73,12 +73,12 @@
   @import './tooltip.css';
 
   .alert {
-    background    : rgba(220, 84, 88, 0.91);
-    color         : white;
-    font-weight   : bold;
-    padding       : 5px;
-    margin-top    : -5px;
-    margin-bottom : 0;
+    background-color : #eeeeee;
+    color            : rgba(220, 84, 88, 0.91);
+    font-weight      : bold;
+    padding          : 5px;
+    margin-top       : 0px;
+    margin-bottom    : 0;
   }
 
   .alert-in {
@@ -126,6 +126,7 @@
     margin          : 0;
     padding         : 0;
     list-style-type : none;
+    background      : #eeeeee;
   }
 
   ul li {
