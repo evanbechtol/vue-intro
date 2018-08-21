@@ -108,7 +108,7 @@
   }
 
   input {
-    width            : calc(100% - 40px);
+    width            : 100%;
     border           : 0;
     padding          : 20px;
     font-size        : 1.3em;
