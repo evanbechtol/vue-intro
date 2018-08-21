@@ -1,5 +1,5 @@
 <template>
-  <v-container id="container" fluid grid-list-xs class="pa-2 transparent">
+  <div class='holder'>
     <!-- Prevent page from refreshing -->
     <form @submit.prevent='addTodo'>
       <input type='text'
@@ -16,28 +16,24 @@
       </transition>
     </form>
 
-    <v-list>
+    <ul>
       <transition-group name='list'
                         enter-active-class='animated bounceInUp'
                         leave-active-class='animated bounceOutDown'>
-        <v-list-tile class="tile" v-for='( data, index ) in list' :key='index' @click="">
-          <v-list-tile-content>
-            <v-flex>
-              <v-card class="card" hover tile width="95vw">
-                <v-layout align-space-around row>
-                  <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
-                  <v-card-text>{{ data.todo }}</v-card-text>
-                </v-layout>
-              </v-card>
-            </v-flex>
-          </v-list-tile-content>
-        </v-list-tile>
+
+        <!-- Iterate over each item in the list of todos -->
+        <li v-for='( data, index ) in list' :key='index'>
+          <div>
+            {{ data.todo }}
+            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
+          </div>
+        </li>
       </transition-group>
-    </v-list>
+    </ul>
 
     <!--<div v-bind:class='alertObj'>Here is an alert!</div>-->
     <!--<div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'>Here is an alert!</div>-->
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -78,7 +74,7 @@
     color            : rgba(220, 84, 88, 0.91);
     font-weight      : bold;
     padding          : 5px;
-    margin-top       : 0;
+    margin-top       : 0px;
     margin-bottom    : 0;
   }
 
@@ -90,26 +86,15 @@
     animation : bounce-in .5s reverse;
   }
 
-  .card {
-    padding          : 20px;
-    font-size        : 1.3em;
-    background-color : #E0EDF4;
-    border-left      : 5px solid #3EB3F6;
-    margin-bottom    : 2px;
-    color            : #3E5252;
-    word-wrap        : break-word;
-  }
-
-  #container {
+  .holder {
     margin-bottom : 4em;
   }
 
   i {
-    color         : rgba(220, 84, 88, 1.0);
-    cursor        : pointer;
-    display       : grid;
-    align-items   : center;
-    justify-items : center;
+    float       : right;
+    color       : rgba(220, 84, 88, 1.0);
+    cursor      : pointer;
+    margin-left : 10px;
   }
 
   input {
@@ -134,15 +119,14 @@
     background      : #eeeeee;
   }
 
-  .tile {
-    margin-bottom : 2px;
-  }
-
-  .transparent {
-    background-color   : transparent !important;
-    border-color       : transparent !important;
-    -webkit-box-shadow : none !important;
-    box-shadow         : none !important;
+  ul li {
+    padding          : 20px;
+    font-size        : 1.3em;
+    background-color : #E0EDF4;
+    border-left      : 5px solid #3EB3F6;
+    margin-bottom    : 2px;
+    color            : #3E5252;
+    word-wrap        : break-word;
   }
 
   @keyframes bounce-in {
