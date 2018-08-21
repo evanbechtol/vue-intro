@@ -1,3 +1,5 @@
+<!-- Todo Make border color based on priority -->
+
 <template>
   <div class='holder'>
     <!-- Prevent page from refreshing -->
@@ -74,7 +76,7 @@
     color            : rgba(220, 84, 88, 0.91);
     font-weight      : bold;
     padding          : 5px;
-    margin-top       : 0px;
+    margin-top       : 0;
     margin-bottom    : 0;
   }
 
@@ -113,7 +115,6 @@
   }
 
   ul {
-    margin          : 0;
     padding         : 0;
     list-style-type : none;
     background      : #eeeeee;
