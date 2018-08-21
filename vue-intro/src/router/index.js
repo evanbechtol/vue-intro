@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AppLayout from '../components/AppLayout';
+import Todo from '../components/Todo';
 import Login from '../components/Login';
 import About from '../components/About';
 import Contact from '../components/Contact';
@@ -11,8 +11,8 @@ export default new Router( {
   routes : [
     {
       path      : '/',
-      name      : 'AppLayout',
-      component : AppLayout
+      name      : 'Todo',
+      component : Todo
     },
     {
       path      : '/login',

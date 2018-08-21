@@ -1,7 +1,7 @@
 <template>
   <v-toolbar color="light-blue darken-1" dark>
     <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text">Vue Todo</v-toolbar-title>
+    <v-toolbar-title><router-link class="link white--text" to="/">Vue Todo</router-link></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <router-link class="link" to="/about">

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-  import Todo from './components/Todo.vue';
   import Toolbar from './components/Toolbar';
   import Footer from './components/Footer';
 
@@ -15,8 +14,7 @@
     name       : 'app',
     components : {
       Footer,
-      Toolbar,
-      Todo
+      Toolbar
     },
     data       : () => ( {
       drawer : true

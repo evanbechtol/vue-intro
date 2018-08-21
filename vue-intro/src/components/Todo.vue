@@ -1,42 +1,43 @@
 <template>
-  <div class='hello'>
-    <div class='holder'>
+  <v-container id="container" fluid grid-list-xs class="pa-2 transparent">
+    <!-- Prevent page from refreshing -->
+    <form @submit.prevent='addTodo'>
+      <input type='text'
+             placeholder='What do you need to do?'
+             v-model='input'
+             v-validate='"min:5"'
+             name='input'>
 
-      <!-- Prevent page from refreshing -->
-      <form @submit.prevent='addTodo'>
-        <input type='text'
-               placeholder='What do you need to do?'
-               v-model='input'
-               v-validate='"min:5"'
-               name='input'>
+      <!-- Create a CSS animation class for alerts -->
+      <transition name='alert-in'
+                  enter-active-class='animated flipInX'
+                  leave-active-class='animated flipOutX'>
+        <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
+      </transition>
+    </form>
 
-        <!-- Create a CSS animation class for alerts -->
-        <transition name='alert-in'
-                    enter-active-class='animated flipInX'
-                    leave-active-class='animated flipOutX'>
-          <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
-        </transition>
-      </form>
+    <v-list>
+      <transition-group name='list'
+                        enter-active-class='animated bounceInUp'
+                        leave-active-class='animated bounceOutDown'>
+        <v-list-tile class="tile" v-for='( data, index ) in list' :key='index' @click="">
+          <v-list-tile-content>
+            <v-flex>
+              <v-card class="card" hover tile width="95vw">
+                <v-layout align-space-around row>
+                  <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
+                  <v-card-text>{{ data.todo }}</v-card-text>
+                </v-layout>
+              </v-card>
+            </v-flex>
+          </v-list-tile-content>
+        </v-list-tile>
+      </transition-group>
+    </v-list>
 
-      <ul>
-        <transition-group name='list'
-                          enter-active-class='animated bounceInUp'
-                          leave-active-class='animated bounceOutDown'>
-
-          <!-- Iterate over each item in the list of todos -->
-          <li v-for='( data, index ) in list' :key='index'>
-            <div>
-              {{ data.todo }}
-              <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( data, index )'></i>
-            </div>
-          </li>
-        </transition-group>
-      </ul>
-
-      <!--<div v-bind:class='alertObj'>Here is an alert!</div>-->
-      <!--<div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'>Here is an alert!</div>-->
-    </div>
-  </div>
+    <!--<div v-bind:class='alertObj'>Here is an alert!</div>-->
+    <!--<div v-bind:style='{ backgroundColor: bgColor, width: bgWidth, height: bgHeight }'>Here is an alert!</div>-->
+  </v-container>
 </template>
 
 <script>
@@ -77,11 +78,8 @@
     color            : rgba(220, 84, 88, 0.91);
     font-weight      : bold;
     padding          : 5px;
-    margin-top       : 0px;
+    margin-top       : 0;
     margin-bottom    : 0;
-  }
-
-  .alert-in {
   }
 
   .alert-in-enter-active {
@@ -92,19 +90,26 @@
     animation : bounce-in .5s reverse;
   }
 
-  .container {
-    box-shadow : 0px 0px 40px lightgray;
+  .card {
+    padding          : 20px;
+    font-size        : 1.3em;
+    background-color : #E0EDF4;
+    border-left      : 5px solid #3EB3F6;
+    margin-bottom    : 2px;
+    color            : #3E5252;
+    word-wrap        : break-word;
   }
 
-  .holder {
-    background : #fff;
+  #container {
+    margin-bottom : 4em;
   }
 
   i {
-    float       : right;
-    color       : rgba(220, 84, 88, 1.0);
-    cursor      : pointer;
-    margin-left : 10px;
+    color         : rgba(220, 84, 88, 1.0);
+    cursor        : pointer;
+    display       : grid;
+    align-items   : center;
+    justify-items : center;
   }
 
   input {
@@ -129,14 +134,15 @@
     background      : #eeeeee;
   }
 
-  ul li {
-    padding          : 20px;
-    font-size        : 1.3em;
-    background-color : #E0EDF4;
-    border-left      : 5px solid #3EB3F6;
-    margin-bottom    : 2px;
-    color            : #3E5252;
-    word-wrap        : break-word;
+  .tile {
+    margin-bottom : 2px;
+  }
+
+  .transparent {
+    background-color   : transparent !important;
+    border-color       : transparent !important;
+    -webkit-box-shadow : none !important;
+    box-shadow         : none !important;
   }
 
   @keyframes bounce-in {

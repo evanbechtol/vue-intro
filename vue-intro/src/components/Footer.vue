@@ -1,36 +1,31 @@
 <template>
-  <v-footer
-      dark
-      height="auto"
-      fixed>
-    <v-card
-        flat
-        tile
-        class="light-blue darken-1 white--text text-xs-center">
-      <v-card-text>
-        <!--<v-btn
-            v-for="icon in icons"
-            :key="icon"
-            class="mx-3 white&#45;&#45;text"
-            icon>
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>-->
-      </v-card-text>
-
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut
-        risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui.
-        Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices,
-        cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque
-        penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-text class="white--text">
-        &copy;2018
-      </v-card-text>
-    </v-card>
+  <v-footer id="footer"
+            height="auto"
+            color="light-blue darken-1"
+            class="px-0"
+            fixed>
+    <v-layout
+        justify-center
+        row
+        wrap>
+      <v-btn
+          v-for="link in links"
+          :key="link"
+          color="white"
+          flat
+          round>
+        {{ link }}
+      </v-btn>
+      <v-flex
+          color="light-blue darken-1"
+          dark
+          py-3
+          text-xs-center
+          white--text
+          xs12>
+        &copy;2018 — <strong>Evan Bechtol</strong>
+      </v-flex>
+    </v-layout>
   </v-footer>
 </template>
 
