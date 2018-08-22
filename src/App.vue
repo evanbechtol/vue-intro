@@ -1,12 +1,14 @@
 <template>
-  <div id="app">
-    <main>
-      <Toolbar/>
-      <!--<img src="./assets/logo.png" alt="Vue.js PWA">-->
-      <router-view></router-view>
-      <Footer/>
-    </main>
-  </div>
+  <v-app>
+    <div id="app">
+      <main>
+        <Toolbar/>
+        <!--<img src="./assets/logo.png" alt="Vue.js PWA">-->
+        <router-view></router-view>
+        <Footer/>
+      </main>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -21,6 +23,7 @@ export default {
 <style>
 body {
   margin: 0;
+  background-color: #eeeeee;
 }
 
 #app {
