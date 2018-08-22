@@ -111,8 +111,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import 'https://cdn.jsdelivr.net/npm/animate.css@3.5.1';
-  @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-  @import './tooltip.css';
+  @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+  @import 'tooltip.css';
 
   .alert {
     background-color : rgba(220, 84, 88, 0.91);

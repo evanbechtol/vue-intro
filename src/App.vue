@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Toolbar from '../../vue-intro/src/components/Toolbar';
-import Footer from '../../vue-intro/src/components/Footer';
+import Toolbar from './components/Toolbar';
+import Footer from './components/Footer';
 export default {
   name: 'app',
   components : { Footer, Toolbar }
