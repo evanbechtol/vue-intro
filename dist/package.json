@@ -1,0 +1,11 @@
+{
+  "name": "vue-pwa-test",
+  "version": "1.0.0",
+  "description": "A Vue.js project",
+  "author": "eevabec <evan.bechtol@ericsson.com>",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install express",
+    "deploy": "git subtree push — prefix dist heroku master"
+  }
+}
