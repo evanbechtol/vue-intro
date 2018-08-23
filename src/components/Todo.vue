@@ -67,14 +67,17 @@
         </v-tooltip>
       </v-btn>
       <v-dialog v-model="dialog" fullscreen>
-        <v-btn id="addTodoBtn"
-               class="success"
-               slot="activator"
-               fab
-               small
-               dark>
-          <v-icon style="position: relative; right: 5px;">add</v-icon>
-        </v-btn>
+          <v-btn id="addTodoBtn"
+                 class="success"
+                 slot="activator"
+                 fab
+                 small
+                 dark>
+            <v-tooltip left>
+              <v-icon slot="activator" style="position: relative; right: 5px;">add</v-icon>
+              <span>Add New Todo</span>
+            </v-tooltip>
+          </v-btn>
 
         <v-card>
           <v-card-title
