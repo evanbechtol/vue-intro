@@ -1,7 +1,7 @@
 {
-  "name": "vue-pwa-test",
+  "name": "vue-todo-pwa",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "A PWA Todo App",
   "author": "eevabec <evan.bechtol@ericsson.com>",
   "private": true,
   "scripts": {
