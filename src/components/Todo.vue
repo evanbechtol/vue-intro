@@ -168,9 +168,10 @@
                 height="20px"
                 fixed
                 app>
-        <v-layout align-center justify-space-around row fill-height>
-          <v-flex xs1>
+        <v-layout align-center justify-center row fill-height>
+          <v-flex justify-end xs6>
             <v-btn class="fabBtn"
+                   style="left: 30px;"
                    dark
                    small>
               <v-tooltip top>
@@ -183,12 +184,14 @@
               </v-tooltip>
             </v-btn>
           </v-flex>
-          <v-flex xs1>
+          <v-flex xs6 justify-start>
             <!-- Add dialog -->
             <v-dialog v-model="dialog" fullscreen>
               <v-btn id="addTodoBtn"
                      class="fabBtn"
+                     style="right: 30px;"
                      slot="activator"
+                     left
                      small
                      dark>
                 <v-tooltip top>
