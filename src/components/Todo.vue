@@ -152,7 +152,10 @@
               <v-list-tile-sub-title v-html="`<span>Created At: ${item.createdAt}</span>`"></v-list-tile-sub-title>
               <v-list-tile-sub-title v-html="`<span>Due By: ${item.dueDate}</span>`"></v-list-tile-sub-title>
             </v-list-tile-content>
-            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+            <v-tooltip left>
+              <i slot="activator" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+              <span>Remove Todo</span>
+            </v-tooltip>
           </v-list-tile>
         </template>
       </transition-group>
@@ -165,7 +168,7 @@
                 height="20px"
                 fixed
                 app>
-        <v-layout align-center justify-center row fill-height>
+        <v-layout align-center justify-space-around row fill-height>
           <v-flex xs1>
             <v-btn class="fabBtn"
                    fab
@@ -182,6 +185,7 @@
             </v-btn>
           </v-flex>
           <v-flex xs1>
+            <!-- Add dialog -->
             <v-dialog v-model="dialog" fullscreen>
               <v-btn id="addTodoBtn"
                      class="success fabBtn"
