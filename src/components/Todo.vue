@@ -55,8 +55,15 @@
         <!-- Iterate over each item in the list of todos -->
         <li v-for='( item, index ) in list' :key='index' v-bind:class='[item.priority]'>
           <div>
-            {{ item.todo }}
-            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+            <v-container class="pa-0">
+              <v-layout>
+                <v-layout column>
+                  <small style="font-size: 60% !important;">{{ item.createdAt }}</small>
+                  {{ item.todo }}
+                </v-layout>
+                <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+              </v-layout>
+            </v-container>
           </div>
         </li>
       </transition-group>
@@ -107,7 +114,11 @@
       addTodo () {
         this.$validator.validateAll().then( res => {
           if ( res ) {
-            this.list.push( { todo : this.input, priority : this.priority === '' ? 'None' : this.priority } );
+            this.list.push( {
+              todo      : this.input,
+              priority  : this.priority === '' ? 'None' : this.priority,
+              createdAt : new Date().toDateString()
+            } );
             this.input    = '';
             this.priority = '';
           }
@@ -186,10 +197,12 @@
   }
 
   i {
-    float       : right;
-    color       : rgba(220, 84, 88, 1.0);
-    cursor      : pointer;
-    margin-left : 10px;
+    float         : right;
+    color         : rgba(220, 84, 88, 1.0);
+    cursor        : pointer;
+    margin-left   : 10px;
+    display       : grid;
+    align-content : center;
   }
 
   input {

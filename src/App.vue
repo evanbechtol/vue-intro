@@ -33,7 +33,7 @@ body {
 }
 
 main {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 header {
