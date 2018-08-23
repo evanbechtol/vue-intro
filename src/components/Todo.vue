@@ -107,7 +107,7 @@
       addTodo () {
         this.$validator.validateAll().then( res => {
           if ( res ) {
-            this.list.push( { todo : this.input, priority : this.priority } );
+            this.list.push( { todo : this.input, priority : this.priority === '' ? 'None' : this.priority } );
             this.input    = '';
             this.priority = '';
           }
