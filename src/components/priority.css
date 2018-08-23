@@ -1,0 +1,23 @@
+.Emergency {
+  border-left : 8px solid #DF462E !important;
+}
+
+.Urgent {
+  border-left : 8px solid #DF6E29 !important;
+}
+
+.High {
+  border-left : 8px solid #dfde3e !important;
+}
+
+.Medium {
+  border-left : 8px solid #3CF06F !important;
+}
+
+.Low {
+  border-left : 8px solid #3EB3F6 !important;
+}
+
+.None {
+  border-left : 8px solid #878DFF !important;
+}
