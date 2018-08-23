@@ -171,7 +171,7 @@
         <v-layout align-center justify-center row fill-height>
           <v-flex justify-end xs6>
             <v-btn class="fabBtn"
-                   style="left: 30px;"
+                   style="left: 12vw;"
                    dark
                    small>
               <v-tooltip top>
@@ -189,7 +189,8 @@
             <v-dialog v-model="dialog" fullscreen>
               <v-btn id="addTodoBtn"
                      class="fabBtn"
-                     style="right: 30px;"
+                     absolute
+                     style="left: 60vw; bottom: 4px;"
                      slot="activator"
                      left
                      small
