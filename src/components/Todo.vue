@@ -171,7 +171,7 @@
         <v-layout align-center justify-center row fill-height>
           <v-flex justify-end xs6>
             <v-btn class="fabBtn"
-                   style="left: 13vw;"
+                   style="left: 14vw;"
                    dark
                    small>
               <v-tooltip top>
