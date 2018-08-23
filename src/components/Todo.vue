@@ -1,127 +1,5 @@
 <template>
   <div class='holder'>
-    <!-- Prevent page from refreshing -->
-    <v-layout>
-      <v-flex>
-        <v-dialog v-model="dialog" fullscreen>
-          <v-btn id="addTodoBtn"
-                 class="success btn"
-                 slot="activator"
-                 dark>
-            Add Todo
-          </v-btn>
-
-          <v-card>
-            <v-card-title
-              class="headline grey lighten-2"
-              primary-title>
-              Add Todo
-              <v-spacer></v-spacer>
-              <i class="fa fa-times" @click="dialog = false"></i>
-            </v-card-title>
-
-            <v-card-text>
-              <form @submit.prevent='addTodo' id="form">
-                <v-flex align-content-center xs12 sm12 md12 xl12>
-                  <v-textarea
-                    id="todoInput"
-                    type='text'
-                    placeholder='What do you need to do?'
-                    v-model='input'
-                    name='input'>
-                  </v-textarea>
-                </v-flex>
-
-                <v-layout align-center justify-center fill-height column>
-                  <v-flex xs12 fill-height d-flex>
-                    <v-dialog v-model="dateDialog" width="290px">
-                      <v-btn id="dueDateBtn"
-                             class="btn"
-                             slot="activator"
-                             color="light-blue darken-1"
-                             full-width
-                             dark>
-                        Set Due Date
-                      </v-btn>
-
-                      <v-card>
-                        <v-card-title
-                          class="headline grey lighten-2"
-                          primary-title>
-                          Due Date
-                        </v-card-title>
-
-                        <v-date-picker v-model="dueDate"
-                                       :landscape="landscape"
-                                       :reactive="reactive"></v-date-picker>
-
-                        <v-divider></v-divider>
-
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            color="primary"
-                            flat
-                            @click="dateDialog = false">
-                            Submit
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </v-flex>
-
-                  <v-flex xs12 fill-height d-flex>
-                    <v-menu bottom
-                            lazy
-                            left
-                            origin="center center"
-                            transition="slide-y-transition">
-                      <v-btn
-                        id="priority-btn"
-                        slot="activator"
-                        class="btn success"
-                        dark>
-                        Set Priority
-                      </v-btn>
-                      <v-list class="priority-list">
-                        <v-list-tile
-                          class='priority-option'
-                          v-for='( item, i ) in priorities'
-                          v-bind:class='[item.option]'
-                          :key='i'
-                          @click='setPriority( item.option )'>
-                          <v-list-tile-title>{{ item.option }}</v-list-tile-title>
-                        </v-list-tile>
-                      </v-list>
-                    </v-menu>
-
-                    <!-- Create a CSS animation class for alerts -->
-                    <!--<transition name='alert-in'
-                                enter-active-class='animated flipInX'
-                                leave-active-class='animated flipOutX'>
-                      <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
-                    </transition>-->
-                  </v-flex>
-                </v-layout>
-              </form>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                flat
-                @click="addTodo">
-                Submit
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-flex>
-    </v-layout>
-
     <v-list three-line class='pa-0'>
       <transition-group name='list'
                         enter-active-class='animated slideInLeft'
@@ -147,14 +25,160 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-html="item.todo"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="`<span>Created At : ${item.createdAt}</span>`"></v-list-tile-sub-title>
-              <v-list-tile-sub-title v-html="`<span> Due By    : ${item.dueDate}</span>`"></v-list-tile-sub-title>
+              <v-list-tile-sub-title v-html="`<span>Created At: ${item.createdAt}</span>`"></v-list-tile-sub-title>
+              <v-list-tile-sub-title v-html="`<span>Due By: ${item.dueDate}</span>`"></v-list-tile-sub-title>
             </v-list-tile-content>
             <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
           </v-list-tile>
         </template>
       </transition-group>
     </v-list>
+
+    <v-speed-dial
+      id="speedDial"
+      v-model="fab"
+      :top="top"
+      :bottom="bottom"
+      :right="right"
+      :left="left"
+      :direction="direction"
+      :open-on-hover="hover"
+      :transition="transition"
+      style="right: 46px;">
+      <v-btn
+        slot="activator"
+        v-model="fab"
+        color="blue darken-2"
+        dark
+        fab>
+        <v-icon style="position: relative; left: 12px;">more_vert</v-icon>
+        <v-icon style="position: relative; left: -22px;">close</v-icon>
+      </v-btn>
+      <v-btn fab
+             dark
+             small>
+        <v-tooltip left>
+          <v-icon style="position: relative; right: 5px;"
+                  slot="activator"
+                  class="fa fa-sort"
+                  v-on:click='setSort( order )'>
+          </v-icon>
+          <span>Sort by due date</span>
+        </v-tooltip>
+      </v-btn>
+      <v-dialog v-model="dialog" fullscreen>
+        <v-btn id="addTodoBtn"
+               class="success"
+               slot="activator"
+               fab
+               small
+               dark>
+          <v-icon style="position: relative; right: 5px;">add</v-icon>
+        </v-btn>
+
+        <v-card>
+          <v-card-title
+            class="headline grey lighten-2"
+            primary-title>
+            Add Todo
+            <v-spacer></v-spacer>
+            <i class="fa fa-times" @click="dialog = false"></i>
+          </v-card-title>
+
+          <v-card-text>
+            <form @submit.prevent='addTodo' id="form">
+              <v-flex align-content-center xs12 sm12 md12 xl12>
+                <v-textarea
+                  id="todoInput"
+                  type='text'
+                  placeholder='What do you need to do?'
+                  v-model='input'
+                  name='input'>
+                </v-textarea>
+              </v-flex>
+
+              <v-layout align-center justify-center fill-height column>
+                <v-flex xs12 fill-height d-flex>
+                  <v-dialog v-model="dateDialog" width="290px">
+                    <v-btn id="dueDateBtn"
+                           class="btn"
+                           slot="activator"
+                           color="light-blue darken-1"
+                           full-width
+                           dark>
+                      Set Due Date
+                    </v-btn>
+
+                    <v-card>
+                      <v-card-title
+                        class="headline grey lighten-2"
+                        primary-title>
+                        Due Date
+                      </v-card-title>
+
+                      <v-date-picker v-model="dueDate"
+                                     :landscape="landscape"
+                                     :reactive="reactive"></v-date-picker>
+
+                      <v-divider></v-divider>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          flat
+                          @click="dateDialog = false">
+                          Submit
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </v-flex>
+
+                <v-flex xs12 fill-height d-flex>
+                  <v-menu bottom
+                          lazy
+                          left
+                          origin="center center"
+                          transition="slide-y-transition">
+                    <v-btn
+                      id="priority-btn"
+                      slot="activator"
+                      class="btn success"
+                      dark>
+                      Set Priority
+                    </v-btn>
+                    <v-list class="priority-list">
+                      <v-list-tile
+                        class='priority-option'
+                        v-for='( item, i ) in priorities'
+                        v-bind:class='[item.option]'
+                        :key='i'
+                        @click='setPriority( item.option )'>
+                        <v-list-tile-title>{{ item.option }}</v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </v-flex>
+              </v-layout>
+            </form>
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              flat
+              @click="addTodo">
+              Submit
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-speed-dial>
+
   </div>
 </template>
 
@@ -176,17 +200,44 @@
             this.addTodo();
           }
         }
+      },
+
+      top ( val ) {
+        this.bottom = !val;
+      },
+
+      right ( val ) {
+        this.left = !val;
+      },
+
+      bottom ( val ) {
+        this.top = !val;
+      },
+
+      left ( val ) {
+        this.right = !val;
       }
     },
 
     data () {
       return {
+        direction  : 'top',
+        fab        : false,
+        fling      : false,
+        hover      : false,
+        tabs       : null,
+        top        : false,
+        right      : true,
+        bottom     : true,
+        left       : false,
+        transition : 'slide-y-reverse-transition',
         dateDialog : false,
         dialog     : false,
         dueDate    : null,
         input      : '',
         landscape  : false,
         list       : [],
+        order      : 0,
         priority   : '',
         priorities : [
           { option : 'Emergency' },
@@ -198,6 +249,21 @@
         ],
         reactive   : true
       };
+    },
+
+    computed : {
+      activeFab () {
+        switch ( this.tabs ) {
+          case 'one':
+            return { 'class' : 'purple', icon : 'account_circle' };
+          case 'two':
+            return { 'class' : 'red', icon : 'edit' };
+          case 'three':
+            return { 'class' : 'green', icon : 'keyboard_arrow_up' };
+          default:
+            return {};
+        }
+      }
     },
 
     mounted () {
@@ -239,6 +305,32 @@
 
       setPriority ( value ) {
         this.priority = value;
+      },
+
+      setSort ( order ) {
+        if ( order === -1 ) {
+          this.order = 0;
+        } else if ( order === 0 ) {
+          this.order = 1;
+        } else {
+          this.order = -1;
+        }
+        this.sortByDate();
+      },
+
+      sortByDate () {
+        if ( this.order === 1 ) {
+          this.list = this.list.sort( function ( a, b ) {
+            return new Date( b.dueDate ) - new Date( a.dueDate );
+          } );
+        } else if ( this.order === -1 ) {
+          this.list = this.list.sort( function ( a, b ) {
+            return new Date( a.dueDate ) - new Date( b.dueDate );
+          } );
+        } else {
+
+        }
+
       }
     }
   };
@@ -251,11 +343,6 @@
   @import 'animation.css';
   @import 'tooltip.css';
   @import 'priority.css';
-
-  #addTodoBtn {
-    width  : 100vw;
-    margin : 0 !important;
-  }
 
   .alert {
     background-color : rgba(220, 84, 88, 0.91);
@@ -279,10 +366,6 @@
     /*background-color : #323333;
     color            : #687F7F;*/
     height : 100%;
-  }
-
-  .holder {
-    /*margin-bottom : 4em;*/
   }
 
   i {
@@ -317,6 +400,10 @@
     font-size : 60%;
   }
 
+  #speedDial {
+    position : absolute;
+  }
+
   #todoInput {
     width            : 96vw;
     border           : 0;
@@ -339,5 +426,9 @@
     margin-bottom    : 2px;
     color            : #3E5252;
     word-wrap        : break-word;
+  }
+
+  v-icon {
+    position : relative; right : 5px;
   }
 </style>
