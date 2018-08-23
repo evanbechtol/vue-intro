@@ -85,6 +85,14 @@
           localStorage.setItem( 'todos', JSON.stringify( this.list ) );
         },
         deep : true
+      },
+
+      priority: {
+          handler () {
+            if ( this.priority !== '' && this.input ) {
+              this.addTodo();
+            }
+          }
       }
     },
 
