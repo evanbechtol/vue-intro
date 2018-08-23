@@ -190,7 +190,7 @@
               <v-btn id="addTodoBtn"
                      class="fabBtn"
                      absolute
-                     style="left: 60vw; bottom: 4px;"
+                     style="left: 59vw; bottom: 4px;"
                      slot="activator"
                      left
                      small
