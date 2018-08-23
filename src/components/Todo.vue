@@ -122,28 +122,39 @@
       </v-flex>
     </v-layout>
 
-    <ul>
+    <v-list three-line class='pa-0'>
       <transition-group name='list'
                         enter-active-class='animated slideInLeft'
                         leave-active-class='animated slideOutRight'>
 
-        <!-- Iterate over each item in the list of todos -->
-        <li v-for='( item, index ) in list' :key='index' v-bind:class='[item.priority]'>
-          <div>
-            <v-container class="pa-0">
-              <v-layout>
-                <v-layout column>
-                  <small class="small">Created On: {{ item.createdAt }}</small>
-                  <small class="small">Due On : {{ item.dueDate }}</small>
-                  {{ item.todo }}
-                </v-layout>
-                <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
-              </v-layout>
-            </v-container>
-          </div>
-        </li>
+        <template v-for="( item, index ) in list">
+          <v-subheader
+            v-if="item.header"
+            :key="item.header">
+            {{ item.header }}
+          </v-subheader>
+
+          <v-divider
+            v-else-if="item.divider"
+            :inset="item.inset"
+            :key="index"></v-divider>
+
+          <v-list-tile
+            v-else
+            :key="index"
+            v-bind:class="[item.priority]"
+            @click="">
+
+            <v-list-tile-content>
+              <v-list-tile-title v-html="item.todo"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="`<span>Created At : ${item.createdAt}</span>`"></v-list-tile-sub-title>
+              <v-list-tile-sub-title v-html="`<span> Due By    : ${item.dueDate}</span>`"></v-list-tile-sub-title>
+            </v-list-tile-content>
+            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+          </v-list-tile>
+        </template>
       </transition-group>
-    </ul>
+    </v-list>
   </div>
 </template>
 
@@ -219,7 +230,6 @@
           }
 
 
-
         } );
       },
 
@@ -272,7 +282,7 @@
   }
 
   .holder {
-    margin-bottom : 4em;
+    /*margin-bottom : 4em;*/
   }
 
   i {

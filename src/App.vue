@@ -4,7 +4,7 @@
       <main>
         <Toolbar/>
         <router-view></router-view>
-        <Footer/>
+        <!--<Footer/>-->
       </main>
     </div>
   </v-app>
@@ -12,10 +12,10 @@
 
 <script>
 import Toolbar from './components/Toolbar';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 export default {
   name: 'app',
-  components : { Footer, Toolbar }
+  components : { /*Footer, */Toolbar }
 }
 </script>
 
