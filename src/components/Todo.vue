@@ -171,11 +171,10 @@
         <v-layout align-center justify-space-around row fill-height>
           <v-flex xs1>
             <v-btn class="fabBtn"
-                   fab
                    dark
                    small>
               <v-tooltip top>
-                <v-icon style="position: relative; right: 5px;"
+                <v-icon
                         slot="activator"
                         class="fa fa-sort"
                         v-on:click='setSort( order )'>
@@ -188,13 +187,12 @@
             <!-- Add dialog -->
             <v-dialog v-model="dialog" fullscreen>
               <v-btn id="addTodoBtn"
-                     class="success fabBtn"
+                     class="fabBtn"
                      slot="activator"
-                     fab
                      small
                      dark>
                 <v-tooltip top>
-                  <v-icon slot="activator" style="position: relative; right: 5px;">add</v-icon>
+                  <v-icon slot="activator">add</v-icon>
                   <span>Add New Todo</span>
                 </v-tooltip>
               </v-btn>
@@ -429,12 +427,14 @@
   @import 'priority.css';
 
   #addTodoBtnBig {
-    width: 100vw;
+    width : 100vw;
   }
 
   .fabBtn {
-    height : 30px;
-    width  : 30px;
+    height           : 30px;
+    width            : 30px;
+    background-color : transparent !important;
+    box-shadow       : none !important;
   }
 
   .alert {
