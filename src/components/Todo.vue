@@ -1,73 +1,15 @@
 <template>
   <div class='holder'>
-    <v-list three-line class='pa-0'>
-      <transition-group name='list'
-                        enter-active-class='animated slideInLeft'
-                        leave-active-class='animated slideOutRight'>
 
-        <template v-for="( item, index ) in list">
-          <v-subheader
-            v-if="item.header"
-            :key="item.header">
-            {{ item.header }}
-          </v-subheader>
-
-          <v-divider
-            v-else-if="item.divider"
-            :inset="item.inset"
-            :key="index"></v-divider>
-
-          <v-list-tile
-            v-else
-            :key="index"
-            v-bind:class="[item.priority]"
-            @click="">
-
-            <v-list-tile-content>
-              <v-list-tile-title v-html="item.todo"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="`<span>Created At: ${item.createdAt}</span>`"></v-list-tile-sub-title>
-              <v-list-tile-sub-title v-html="`<span>Due By: ${item.dueDate}</span>`"></v-list-tile-sub-title>
-            </v-list-tile-content>
-            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
-          </v-list-tile>
-        </template>
-      </transition-group>
-    </v-list>
-
-    <v-footer id="footer"
-              color="light-blue darken-1"
-              class="px-0"
-              height="20px"
-              fixed
-              app>
-      <v-layout align-center justify-center row fill-height>
-        <v-flex xs1>
-          <v-btn class="fabBtn"
-                 fab
-                 dark
-                 small>
-            <v-tooltip top>
-              <v-icon style="position: relative; right: 5px;"
-                      slot="activator"
-                      class="fa fa-sort"
-                      v-on:click='setSort( order )'>
-              </v-icon>
-              <span>Sort by due date</span>
-            </v-tooltip>
-          </v-btn>
-        </v-flex>
-        <v-flex xs1>
+    <div class="hidden-sm-and-down">
+      <v-layout>
+        <v-flex md12 lg12>
           <v-dialog v-model="dialog" fullscreen>
-            <v-btn id="addTodoBtn"
-                   class="success fabBtn"
+            <v-btn id="addTodoBtnBig"
+                   class="success btn"
                    slot="activator"
-                   fab
-                   small
                    dark>
-              <v-tooltip top>
-                <v-icon slot="activator" style="position: relative; right: 5px;">add</v-icon>
-                <span>Add New Todo</span>
-              </v-tooltip>
+              Add Todo
             </v-btn>
 
             <v-card>
@@ -153,6 +95,13 @@
                           </v-list-tile>
                         </v-list>
                       </v-menu>
+
+                      <!-- Create a CSS animation class for alerts -->
+                      <!--<transition name='alert-in'
+                                  enter-active-class='animated flipInX'
+                                  leave-active-class='animated flipOutX'>
+                        <p class='alert' v-if='errors.has( "input" )'>{{ errors.first( 'input' ) }}</p>
+                      </transition>-->
                     </v-flex>
                   </v-layout>
                 </form>
@@ -173,7 +122,184 @@
           </v-dialog>
         </v-flex>
       </v-layout>
-    </v-footer>
+    </div>
+
+    <v-list three-line class='pa-0'>
+      <transition-group name='list'
+                        enter-active-class='animated slideInLeft'
+                        leave-active-class='animated slideOutRight'>
+
+        <template v-for="( item, index ) in list">
+          <v-subheader
+            v-if="item.header"
+            :key="item.header">
+            {{ item.header }}
+          </v-subheader>
+
+          <v-divider
+            v-else-if="item.divider"
+            :inset="item.inset"
+            :key="index"></v-divider>
+
+          <v-list-tile
+            v-else
+            :key="index"
+            v-bind:class="[item.priority]"
+            @click="">
+
+            <v-list-tile-content>
+              <v-list-tile-title v-html="item.todo"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="`<span>Created At: ${item.createdAt}</span>`"></v-list-tile-sub-title>
+              <v-list-tile-sub-title v-html="`<span>Due By: ${item.dueDate}</span>`"></v-list-tile-sub-title>
+            </v-list-tile-content>
+            <i v-tooltip="'Remove item'" class="fa fa-minus-circle" v-on:click='removeTodo( item, index )'></i>
+          </v-list-tile>
+        </template>
+      </transition-group>
+    </v-list>
+
+    <div class="hidden-md-and-up">
+      <v-footer id="footer"
+                color="light-blue darken-1"
+                class="px-0"
+                height="20px"
+                fixed
+                app>
+        <v-layout align-center justify-center row fill-height>
+          <v-flex xs1>
+            <v-btn class="fabBtn"
+                   fab
+                   dark
+                   small>
+              <v-tooltip top>
+                <v-icon style="position: relative; right: 5px;"
+                        slot="activator"
+                        class="fa fa-sort"
+                        v-on:click='setSort( order )'>
+                </v-icon>
+                <span>Sort by due date</span>
+              </v-tooltip>
+            </v-btn>
+          </v-flex>
+          <v-flex xs1>
+            <v-dialog v-model="dialog" fullscreen>
+              <v-btn id="addTodoBtn"
+                     class="success fabBtn"
+                     slot="activator"
+                     fab
+                     small
+                     dark>
+                <v-tooltip top>
+                  <v-icon slot="activator" style="position: relative; right: 5px;">add</v-icon>
+                  <span>Add New Todo</span>
+                </v-tooltip>
+              </v-btn>
+
+              <v-card>
+                <v-card-title
+                  class="headline grey lighten-2"
+                  primary-title>
+                  Add Todo
+                  <v-spacer></v-spacer>
+                  <i class="fa fa-times" @click="dialog = false"></i>
+                </v-card-title>
+
+                <v-card-text>
+                  <form @submit.prevent='addTodo' id="form">
+                    <v-flex align-content-center xs12 sm12 md12 xl12>
+                      <v-textarea
+                        id="todoInput"
+                        type='text'
+                        placeholder='What do you need to do?'
+                        v-model='input'
+                        name='input'>
+                      </v-textarea>
+                    </v-flex>
+
+                    <v-layout align-center justify-center fill-height column>
+                      <v-flex xs12 fill-height d-flex>
+                        <v-dialog v-model="dateDialog" width="290px">
+                          <v-btn id="dueDateBtn"
+                                 class="btn"
+                                 slot="activator"
+                                 color="light-blue darken-1"
+                                 full-width
+                                 dark>
+                            Set Due Date
+                          </v-btn>
+
+                          <v-card>
+                            <v-card-title
+                              class="headline grey lighten-2"
+                              primary-title>
+                              Due Date
+                            </v-card-title>
+
+                            <v-date-picker v-model="dueDate"
+                                           :landscape="landscape"
+                                           :reactive="reactive"></v-date-picker>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                color="primary"
+                                flat
+                                @click="dateDialog = false">
+                                Submit
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-flex>
+
+                      <v-flex xs12 fill-height d-flex>
+                        <v-menu bottom
+                                lazy
+                                left
+                                origin="center center"
+                                transition="slide-y-transition">
+                          <v-btn
+                            id="priority-btn"
+                            slot="activator"
+                            class="btn success"
+                            dark>
+                            Set Priority
+                          </v-btn>
+                          <v-list class="priority-list">
+                            <v-list-tile
+                              class='priority-option'
+                              v-for='( item, i ) in priorities'
+                              v-bind:class='[item.option]'
+                              :key='i'
+                              @click='setPriority( item.option )'>
+                              <v-list-tile-title>{{ item.option }}</v-list-tile-title>
+                            </v-list-tile>
+                          </v-list>
+                        </v-menu>
+                      </v-flex>
+                    </v-layout>
+                  </form>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    flat
+                    @click="addTodo">
+                    Submit
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-flex>
+        </v-layout>
+      </v-footer>
+    </div>
   </div>
 </template>
 
@@ -298,6 +424,10 @@
   @import 'tooltip.css';
   @import 'priority.css';
 
+  #addTodoBtnBig {
+    width: 100vw;
+  }
+
   .fabBtn {
     height : 30px;
     width  : 30px;
@@ -328,7 +458,7 @@
   }
 
   .holder {
-    margin-bottom: 30px;
+    margin-bottom : 30px;
   }
 
   i {
