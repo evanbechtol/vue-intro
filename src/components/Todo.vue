@@ -70,6 +70,17 @@
 <script>
   export default {
     name : 'Todo',
+
+    watch : {
+      list : {
+        handler () {
+          console.log( 'Todos changed!' );
+          localStorage.setItem( 'todos', JSON.stringify( this.list ) );
+        },
+        deep : true
+      }
+    },
+
     data () {
       return {
         input      : '',
@@ -84,6 +95,12 @@
         ],
         list       : []
       };
+    },
+
+    mounted () {
+      if ( localStorage.getItem( 'todos' ) ) {
+        this.list = JSON.parse( localStorage.getItem( 'todos' ) );
+      }
     },
 
     methods : {
@@ -212,7 +229,7 @@
   ul {
     padding         : 0;
     list-style-type : none;
-    background      : #eeeeee;
+    /*background      : #eeeeee;*/
   }
 
   ul li {
