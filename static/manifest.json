@@ -1,6 +1,6 @@
 {
-  "name": "vue-pwa-test",
-  "short_name": "vue-pwa-test",
+  "name": "vue-todo-pwa",
+  "short_name": "vue-todo-pwa",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
