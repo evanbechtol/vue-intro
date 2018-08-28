@@ -163,147 +163,142 @@
 
     <div class="hidden-md-and-up">
       <v-footer id="footer"
+                height="auto"
                 color="light-blue darken-1"
-                class="px-0"
-                height="20px"
-                fixed
                 app>
-        <v-layout align-center justify-center row fill-height>
-          <v-flex justify-end xs6>
-            <v-btn class="fabBtn"
-                   style="left: 14vw;"
-                   dark
-                   small>
-              <v-tooltip top>
-                <v-icon
-                        slot="activator"
-                        class="fa fa-sort"
-                        v-on:click='setSort( order )'>
-                </v-icon>
-                <span>Sort by due date</span>
-              </v-tooltip>
-            </v-btn>
-          </v-flex>
-          <v-flex xs6 justify-start>
-            <!-- Add dialog -->
-            <v-dialog v-model="dialog" fullscreen>
-              <v-btn id="addTodoBtn"
-                     class="fabBtn"
-                     absolute
-                     style="left: 59vw; bottom: 4px;"
-                     slot="activator"
-                     left
-                     small
-                     dark>
+
+          <v-layout row justify-center>
+            <v-flex xs6 text-xs-center>
+              <v-btn class="fabBtn"
+                     dark
+                     small>
                 <v-tooltip top>
-                  <v-icon slot="activator">add</v-icon>
-                  <span>Add New Todo</span>
+                  <v-icon
+                    slot="activator"
+                    class="fa fa-sort"
+                    v-on:click='setSort( order )'>
+                  </v-icon>
+                  <span>Sort by due date</span>
                 </v-tooltip>
               </v-btn>
+            </v-flex>
+            <v-flex xs6 text-xs-center>
+              <v-dialog v-model="dialog" fullscreen>
+                <v-btn id="addTodoBtn"
+                       class="fabBtn"
+                       slot="activator"
+                       small
+                       dark>
+                  <v-tooltip top>
+                    <v-icon slot="activator">add</v-icon>
+                    <span>Add New Todo</span>
+                  </v-tooltip>
+                </v-btn>
 
-              <v-card>
-                <v-card-title
-                  class="headline grey lighten-2"
-                  primary-title>
-                  Add Todo
-                  <v-spacer></v-spacer>
-                  <i class="fa fa-times" @click="dialog = false"></i>
-                </v-card-title>
+                <v-card>
+                  <v-card-title
+                    class="headline grey lighten-2"
+                    primary-title>
+                    Add Todo
+                    <v-spacer></v-spacer>
+                    <i class="fa fa-times" @click="dialog = false"></i>
+                  </v-card-title>
 
-                <v-card-text>
-                  <form @submit.prevent='addTodo' id="form">
-                    <v-flex align-content-center xs12 sm12 md12 xl12>
-                      <v-textarea
-                        id="todoInput"
-                        type='text'
-                        placeholder='What do you need to do?'
-                        v-model='input'
-                        name='input'>
-                      </v-textarea>
-                    </v-flex>
-
-                    <v-layout align-center justify-center fill-height column>
-                      <v-flex xs12 fill-height d-flex>
-                        <v-dialog v-model="dateDialog" width="290px">
-                          <v-btn id="dueDateBtn"
-                                 class="btn"
-                                 slot="activator"
-                                 color="light-blue darken-1"
-                                 full-width
-                                 dark>
-                            Set Due Date
-                          </v-btn>
-
-                          <v-card>
-                            <v-card-title
-                              class="headline grey lighten-2"
-                              primary-title>
-                              Due Date
-                            </v-card-title>
-
-                            <v-date-picker v-model="dueDate"
-                                           :landscape="landscape"
-                                           :reactive="reactive"></v-date-picker>
-
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn
-                                color="primary"
-                                flat
-                                @click="dateDialog = false">
-                                Submit
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
+                  <v-card-text>
+                    <form @submit.prevent='addTodo' id="form">
+                      <v-flex align-content-center xs12 sm12 md12 xl12>
+                        <v-textarea
+                          id="todoInput"
+                          type='text'
+                          placeholder='What do you need to do?'
+                          v-model='input'
+                          name='input'>
+                        </v-textarea>
                       </v-flex>
 
-                      <v-flex xs12 fill-height d-flex>
-                        <v-menu bottom
-                                lazy
-                                left
-                                origin="center center"
-                                transition="slide-y-transition">
-                          <v-btn
-                            id="priority-btn"
-                            slot="activator"
-                            class="btn success"
-                            dark>
-                            Set Priority
-                          </v-btn>
-                          <v-list class="priority-list">
-                            <v-list-tile
-                              class='priority-option'
-                              v-for='( item, i ) in priorities'
-                              v-bind:class='[item.option]'
-                              :key='i'
-                              @click='setPriority( item.option )'>
-                              <v-list-tile-title>{{ item.option }}</v-list-tile-title>
-                            </v-list-tile>
-                          </v-list>
-                        </v-menu>
-                      </v-flex>
-                    </v-layout>
-                  </form>
-                </v-card-text>
+                      <v-layout align-center justify-center fill-height column>
+                        <v-flex xs12 fill-height d-flex>
+                          <v-dialog v-model="dateDialog" width="290px">
+                            <v-btn id="dueDateBtn"
+                                   class="btn"
+                                   slot="activator"
+                                   color="light-blue darken-1"
+                                   full-width
+                                   dark>
+                              Set Due Date
+                            </v-btn>
 
-                <v-divider></v-divider>
+                            <v-card>
+                              <v-card-title
+                                class="headline grey lighten-2"
+                                primary-title>
+                                Due Date
+                              </v-card-title>
 
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="primary"
-                    flat
-                    @click="addTodo">
-                    Submit
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-flex>
-        </v-layout>
+                              <v-date-picker v-model="dueDate"
+                                             :landscape="landscape"
+                                             :reactive="reactive"></v-date-picker>
+
+                              <v-divider></v-divider>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  color="primary"
+                                  flat
+                                  @click="dateDialog = false">
+                                  Submit
+                                </v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </v-flex>
+
+                        <v-flex xs12 fill-height d-flex>
+                          <v-menu bottom
+                                  lazy
+                                  left
+                                  origin="center center"
+                                  transition="slide-y-transition">
+                            <v-btn
+                              id="priority-btn"
+                              slot="activator"
+                              class="btn success"
+                              dark>
+                              Set Priority
+                            </v-btn>
+                            <v-list class="priority-list">
+                              <v-list-tile
+                                class='priority-option'
+                                v-for='( item, i ) in priorities'
+                                v-bind:class='[item.option]'
+                                :key='i'
+                                @click='setPriority( item.option )'>
+                                <v-list-tile-title>{{ item.option }}</v-list-tile-title>
+                              </v-list-tile>
+                            </v-list>
+                          </v-menu>
+                        </v-flex>
+                      </v-layout>
+                    </form>
+                  </v-card-text>
+
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      flat
+                      @click="addTodo">
+                      Submit
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-flex>
+          </v-layout>
+
       </v-footer>
     </div>
   </div>
